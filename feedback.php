@@ -1,3 +1,19 @@
+<?php
+include 'server.php';
+$qmessage="SELECT * FROM messages ";
+ $querymessage=mysqli_query($connect,$qmessage);
+ $messages=mysqli_fetch_array($querymessage);
+ 
+
+
+
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,17 +57,17 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="index.html" class="nav-item nav-link">About us </a>
+                        <a href="index.php" class="nav-item nav-link active">Home</a>
+                        <a href="index.php" class="nav-item nav-link">About us </a>
                         <a href="#" class="nav-item nav-link">Service we offer </a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">projects</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="#" class="dropdown-item">completed </a>
-                                <a href="#" class="dropdown-item">ongoing</a>
+                                <a href="index.php" class="dropdown-item">completed </a>
+                                <a href="index.php" class="dropdown-item">ongoing</a>
                             </div>
                         </div>
-                        <a href="#" class="nav-item nav-link">Contact</a>
+                        <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
             </nav>
@@ -99,32 +115,21 @@
 <!-- Body section  -->
     <div class="mb-5">
         <h3 class="mb-4 section-title">3 Comments</h3>
-        <div class="media mb-4">
+        <?php while($message=mysqli_fetch_array($querymessage)){ ?>
+        <div style="margin-left:10%;" class="media mb-4">
             <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1 rounded-circle" style="width: 45px;">
             <div class="media-body">
-                <h6>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
-                <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum. Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor consetetur at sit.</p>
+                <h6><?php echo  $message[1]?> <small class="text-lowercase"><i><?php echo  " at ".$message[5]?></i></small></h6>
+                <h6><small class="text-lowercase"><i><?php echo  $message[2]?></i></small></h6>
+                <p><?php echo $message[4]    ?></p>
                 <button class="btn btn-sm btn-light">Reply</button>
+                
             </div>
         </div>
-        <div class="media mb-4">
-            <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1 rounded-circle" style="width: 45px;">
-            <div class="media-body">
-                <h6>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
-                <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum. Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor consetetur at sit.</p>
-                <button class="btn btn-sm btn-light">Reply</button>
-                <div class="media mt-4">
-                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1 rounded-circle" style="width: 45px;">
-                    <div class="media-body">
-                        <h6>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
-                        <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum. Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor consetetur at sit.</p>
-                        <button class="btn btn-sm btn-light">Reply</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php  }?>
     </div>
 <!-- body section end  -->
+
 
 
 
@@ -148,17 +153,17 @@
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-primary mb-4">Quick Links</h4>
                 <div class="d-flex flex-column justify-content-start">
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About Us</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Services</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Projects</a>
+                    <a class="text-white mb-2" href="index.php"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    <a class="text-white mb-2" href="index.php"><i class="fa fa-angle-right mr-2"></i>About Us</a>
+                    <a class="text-white mb-2" href="index.php"><i class="fa fa-angle-right mr-2"></i>Our Services</a>
+                    <a class="text-white mb-2" href="projects.html"><i class="fa fa-angle-right mr-2"></i>Our Projects</a>
                     <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                 </div>
             </div>
             
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-primary mb-4">message Subscriptions</h4>
-                <form action="">
+                <form action="feedback.php" method="POST">
                     <div class="form-group">
                         <input type="text" class="form-control border-0" placeholder="Your Name" required="required" />
                     </div>

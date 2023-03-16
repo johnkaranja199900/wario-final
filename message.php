@@ -1,3 +1,67 @@
+<?php
+include 'server.php';
+
+
+//sending feedback
+$error=array();
+if(isset($_POST['send'])){
+    $name=$_POST['name'];
+    $profession=$_POST['profession'];
+    $email=$_POST['email'];
+    $message=$_POST['message'];
+    
+    //run data validation 
+    if(empty($name)){
+        array_push($error,"your name is required");
+    }
+    if(empty($email)){
+        array_push($error,"email is required");
+    }
+    if(empty($profession)){
+        array_push($error,"email is required");
+    }
+    //incase if no error 
+    if(count($error)==0){
+        //PREPARING QUEARY TO INSERT DATA 
+        $query="INSERT INTO messages (NAME,profession,EMAIL,message)VALUES ('$name','$profession','$email','$message')";
+        $insert=mysqli_query($connect,$query);
+
+        echo  '<script > <div class="alert alert-success alert-dismissable"> Feedback submitted Successfully !. <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="text-align:right; float:right; border: 0px; background-color: rgb(11, 161, 74);" > x  </button> </div> </script>';
+        
+    }
+
+}
+
+//enrolling subscriptions
+
+if(count($_POST)>0){
+    $name=$_POST['name'];
+    $email=$_POST['email'];
+    
+    //run data validation 
+    if(empty($name)){
+        array_push($error,"your name is required");
+    }
+    if(empty($email)){
+        array_push($error,"email is required");
+    }
+
+    //incase if no error 
+    if(count($error)==0){
+        //PREPARING QUEARY TO INSERT DATA 
+        $query="INSERT INTO USERS (NAME,EMAIL)VALUES ('$name','$email')";
+        $insert=mysqli_query($connect,$query);
+
+        echo  '<script > <div class="alert alert-success alert-dismissable">Enrolled  Successfully !. <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="text-align:right; float:right; border: 0px; background-color: rgb(11, 161, 74);" > x  </button> </div> </script>';
+        
+    }
+
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +73,7 @@
     <meta content="s" name="description">
 
    
-    <link  class="rounded" href="img/blog-1.jpg" rel="icon">
+    <link class="rounded" href="img/blog-1.jpg" rel="icon">
 
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet"> 
@@ -94,152 +158,44 @@
             </div>
         </div>
     </div>
+    <!-- Under Nav End -->
+
+
+    <div class="bg-light p-5">
+        <h2 class="mb-6 section-title" >Leave a comment or a Feedback </h2>
+        <form action="message.php" method="POST">
+            <div class="form-group">
+                <label for="name">Name <span class="text-danger text">*</span></label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Profession<span class="text-danger text">*</span></label>
+                <input type="text" class="form-control" id="name"  name="profession" placeholder="Your Profession" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email<span class="text-danger text">*</span></label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="message">Message <span class="text-danger text">*</span></label>
+                <textarea id="message" cols="30" rows="5" name="message" class="form-control" placeholder=" Enter your feedback or Message here"></textarea>
+            </div>
+            <div class="form-group mb-0">
+                <button class="border-0 p-0 ">
+                <input type="submit" value="send a message" name="send" class="btn btn-lg btn-primary btn-block border-0">
+                </button>
+            </div>
+        </form>
+    </div>
+
+
 
 
 
 
     
-<!-- Projects Start -->
-<div class="container-fluid py-5">
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8 col text-center mb-4">
-                <h6 class="text-primary font-weight-normal text-uppercase mb-3">Our Projects</h6>
-                <h1 class="mb-4">Some Of Our Awesome Interior Designing Projects</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 text-center mb-2">
-                <ul class="list-inline mb-4" id="portfolio-flters">
-                    <li class="btn btn-outline-primary m-1 active"  data-filter="*">All</li>
-                    <li class="btn btn-outline-primary m-1" data-filter=".first">Complete</li>
-                    <li class="btn btn-outline-primary m-1" data-filter=".second">Running</li>
-                    <li class="btn btn-outline-primary m-1" data-filter=".third">Upcoming</li>
-                </ul>
-            </div>
-        </div>
-        <div class="row mx-1 portfolio-container">
-            <div class="col-lg-4 col-md-6 col-sm-12 p-0 portfolio-item first">
-                <div class="position-relative overflow-hidden">
-                    <div class="portfolio-img d-flex align-items-center justify-content-center">
-                        <img class="img-fluid" src="img/portfolio-1.jpg" alt="">
-                    </div>
-                    <div class="portfolio-text bg-secondary d-flex flex-column align-items-center justify-content-center">
-                        <h4 class="text-white mb-4">view</h4>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a class="btn btn-outline-primary m-1" href="img/portfolio-1.jpg" data-lightbox="portfolio">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 p-0 portfolio-item second">
-                <div class="position-relative overflow-hidden">
-                    <div class="portfolio-img d-flex align-items-center justify-content-center">
-                        <img class="img-fluid" src="img/portfolio-2.jpg" alt="">
-                    </div>
-                    <div class="portfolio-text bg-secondary d-flex flex-column align-items-center justify-content-center">
-                        <h4 class="text-white mb-4">view </h4>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a class="btn btn-outline-primary m-1" href="img/portfolio-2.jpg" data-lightbox="portfolio">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 p-0 portfolio-item third">
-                <div class="position-relative overflow-hidden">
-                    <div class="portfolio-img d-flex align-items-center justify-content-center">
-                        <img class="img-fluid" src="img/portfolio-3.jpg" alt="">
-                    </div>
-                    <div class="portfolio-text bg-secondary d-flex flex-column align-items-center justify-content-center">
-                        <h4 class="text-white mb-4">view </h4>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a class="btn btn-outline-primary m-1" href="img/portfolio-3.jpg" data-lightbox="portfolio">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 p-0 portfolio-item first">
-                <div class="position-relative overflow-hidden">
-                    <div class="portfolio-img d-flex align-items-center justify-content-center">
-                        <img class="img-fluid" src="img/portfolio-4.jpg" alt="">
-                    </div>
-                    <div class="portfolio-text bg-secondary d-flex flex-column align-items-center justify-content-center">
-                        <h4 class="text-white mb-4">view </h4>
-                        <div class="d-flex align-items-center justify-content-center">
-                           
-                            <a class="btn btn-outline-primary m-1" href="img/portfolio-4.jpg" data-lightbox="portfolio">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 p-0 portfolio-item second">
-                <div class="position-relative overflow-hidden">
-                    <div class="portfolio-img d-flex align-items-center justify-content-center">
-                        <img class="img-fluid" src="img/portfolio-5.jpg" alt="">
-                    </div>
-                    <div class="portfolio-text bg-secondary d-flex flex-column align-items-center justify-content-center">
-                        <h4 class="text-white mb-4">view </h4>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a class="btn btn-outline-primary m-1" href="img/portfolio-5.jpg" data-lightbox="portfolio">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 p-0 portfolio-item third">
-                <div class="position-relative overflow-hidden">
-                    <div class="portfolio-img d-flex align-items-center justify-content-center">
-                        <img class="img-fluid" src="img/portfolio-6.jpg" alt="">
-                    </div>
-                    <div class="portfolio-text bg-secondary d-flex flex-column align-items-center justify-content-center">
-                        <h4 class="text-white mb-4">view </h4>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a class="btn btn-outline-primary m-1" href="img/portfolio-6.jpg" data-lightbox="portfolio">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Projects End -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-md-5">
         <div class="row pt-5">
@@ -268,23 +224,24 @@
             
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-primary mb-4">message Subscriptions</h4>
-                <form action="">
+                <form action="message.php" method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control border-0" placeholder="Your Name" required="required" />
+                        <input type="text" class="form-control border-0" name="name" placeholder="Your Name" required="required" />
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control border-0" placeholder="Your Email" required="required" />
+                        <input type="email" class="form-control border-0" name="email" placeholder="Your Email" required="required" />
                     </div>
-                    <div>
-                        <button class="btn btn-lg btn-primary btn-block border-0" type="submit">Submit Now</button>
-                    </div>
+                    <div class="form-group mb-0">
+                <button class="border-0 p-0 ">
+                <input type="submit" value="send a message" name="subcribe" class="btn btn-lg btn-primary btn-block border-0">
+                </button>
+            </div>
                 </form>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-primary mb-4">Send us a Feedback</h4>
-                
+                <h4 class="text-primary mb-4"> Feedbacks </h4>
                     <div>
-                        <a class="btn btn-lg btn-primary btn-block border-0" href="message.html">Send a message</a>
+                        <a class="btn btn-lg btn-primary btn-block border-0" href="feedback.php">view message</a>
                     </div>
                 
             </div>

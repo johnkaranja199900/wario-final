@@ -1,3 +1,69 @@
+<?php
+include 'server.php';
+
+
+//enrolling subscriptions
+$error=array();
+if(isset($_POST['send'])){
+    $name=$_POST['name'];
+    $profession=$_POST['profession'];
+    $email=$_POST['email'];
+    $message=$_POST['message'];
+    
+    //run data validation 
+    if(empty($name)){
+        array_push($error,"your name is required");
+    }
+    if(empty($email)){
+        array_push($error,"email is required");
+    }
+    if(empty($profession)){
+        array_push($error,"email is required");
+    }
+    //incase if no error 
+    if(count($error)==0){
+        //PREPARING QUEARY TO INSERT DATA 
+        $query="INSERT INTO messages (NAME,profession,EMAIL,message)VALUES ('$name','$profession','$email','$message')";
+        $insert=mysqli_query($connect,$query);
+
+        echo  '<script > <div class="alert alert-success alert-dismissable"> Feedback submitted Successfully !. <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="text-align:right; float:right; border: 0px; background-color: rgb(11, 161, 74);" > x  </button> </div> </script>';
+        
+    }
+
+}
+
+//enrolling subscriptions
+
+if(count($_POST)>0){
+    $name=$_POST['name'];
+    $email=$_POST['email'];
+    
+    //run data validation 
+    if(empty($name)){
+        array_push($error,"your name is required");
+    }
+    if(empty($email)){
+        array_push($error,"email is required");
+    }
+
+    //incase if no error 
+    if(count($error)==0){
+        //PREPARING QUEARY TO INSERT DATA 
+        $query="INSERT INTO USERS (NAME,EMAIL)VALUES ('$name','$email')";
+        $insert=mysqli_query($connect,$query);
+
+        echo  '<script > <div class="alert alert-success alert-dismissable">Enrolled  Successfully !. <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="text-align:right; float:right; border: 0px; background-color: rgb(11, 161, 74);" > x  </button> </div> </script>';
+        
+    }
+
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,17 +107,17 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="index.html" class="nav-item nav-link">About us </a>
+                        <a href="index.php" class="nav-item nav-link active">Home</a>
+                        <a href="index.php" class="nav-item nav-link">About us </a>
                         <a href="#" class="nav-item nav-link">Service we offer </a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">projects</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="#" class="dropdown-item">completed </a>
-                                <a href="#" class="dropdown-item">ongoing</a>
+                                <a href="projects.html" class="dropdown-item">completed </a>
+                                <a href="projects.html" class="dropdown-item">ongoing</a>
                             </div>
                         </div>
-                        <a href="#" class="nav-item nav-link">Contact</a>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
             </nav>
@@ -202,22 +268,22 @@
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-primary mb-4">Quick Links</h4>
                 <div class="d-flex flex-column justify-content-start">
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About Us</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Services</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Projects</a>
-                    <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                    <a class="text-white mb-2" href="index.php"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    <a class="text-white mb-2" href="index.php"><i class="fa fa-angle-right mr-2"></i>About Us</a>
+                    <a class="text-white mb-2" href="index.php"><i class="fa fa-angle-right mr-2"></i>Our Services</a>
+                    <a class="text-white mb-2" href="projects.html"><i class="fa fa-angle-right mr-2"></i>Our Projects</a>
+                    <a class="text-white" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                 </div>
             </div>
             
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-primary mb-4">message Subscriptions</h4>
-                <form action="">
+                <form action="contact.php" method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control border-0" placeholder="Your Name" required="required" />
+                        <input type="text" class="form-control border-0" name="name" placeholder="Your Name" required="required" />
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control border-0" placeholder="Your Email" required="required" />
+                        <input type="email" class="form-control border-0" name="email" placeholder="Your Email" required="required" />
                     </div>
                     <div>
                         <button class="btn btn-lg btn-primary btn-block border-0" type="submit">Submit Now</button>
@@ -228,7 +294,7 @@
                 <h4 class="text-primary mb-4">Send us a Feedback</h4>
                 
                     <div>
-                        <a class="btn btn-lg btn-primary btn-block border-0" href="message.html">Send a message</a>
+                        <a class="btn btn-lg btn-primary btn-block border-0" href="message.php">Send a message</a>
                     </div>
                 
             </div>
