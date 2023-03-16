@@ -4,6 +4,7 @@
 
 DROP DATABASE  IF EXISTS `EMIRATES`;
 
+CREATE DATABASE IF NOT EXISTS `EMIRATES`;
 
 --CREATING TABLE FOR MEASSGES AND CHAT 
 DROP TABLE IF EXISTS `MESSAGES`;
@@ -12,15 +13,14 @@ CREATE TABLE IF NOT EXISTS `MESSAGES`(
     `ID` INT(11) NOT NULL AUTO_INCREMENT,
     `NAME` VARCHAR(255) NOT NULL,
     `PROFESSION` VARCHAR(255) NOT NULL,
-    `EMAIL`,VARCHAR(255) NOT NULL,
-    `MESSAGE`,VARCHAR(255) NOT NULL,
-    PRIMARY KEY(`ID`),
-)ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+    `EMAIL`VARCHAR(255) NOT NULL,
+    `MESSAGE`VARCHAR(255) NOT NULL,
+    PRIMARY KEY(`ID`));
 
 
 --CREATING ONE DETAULT USER
 
-INSERT INTO `MESSAGES` (`ID`,`NAME`,`PROFESSION`,`EMAIL`,`MESSAGE`) VALUES(`1`,`WARIO DUBA`,`EMIRATES DIRECTOR`,`warioduba45@gmail.com`,`Welcome all into ouy company where your are all welcomed here. Incase on anything  like comment or reaching us contat or send us an email`);
+INSERT INTO `MESSAGES` (`ID`,`NAME`,`PROFESSION`,`EMAIL`,`MESSAGE`) VALUES('1','WARIO DUBA','EMIRATES DIRECTOR','warioduba45@gmail.com','Welcome all into ouy company where your are all welcomed here. Incase on anything  like comment or reaching us contat or send us an email');
 
 --DROPING TABLE USERS 
 
@@ -33,7 +33,6 @@ CREATE TABLE IF NOT EXISTS `USERS`(
     `NAME` VARCHAR(255) NOT NULL,
     `EMAIL` VARCHAR(255) NOT NULL,
     PRIMARY KEY(`ID`),
-    UNIQUE(`EMAIL`),
-)ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+    UNIQUE(`EMAIL`));
 
 
